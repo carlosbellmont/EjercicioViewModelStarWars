@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cbellmont.ejercicioadapterstarwars.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,10 +15,12 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
     private var adapter : FilmsAdapter = FilmsAdapter()
     private lateinit var model :MainActivityViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         model = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         createRecyclerView()
@@ -25,8 +28,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createRecyclerView() {
-        filmRecyclerView.layoutManager = LinearLayoutManager(this)
-        filmRecyclerView.adapter = adapter
+        binding.filmRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.filmRecyclerView.adapter = adapter
     }
 
 
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun loadFilmInBackground() : MutableList<Film>{
+        // El withContext(Dispatchers.IO) no es estrictamente necesario. Lo ponemos solo por seguridad.
         return withContext(Dispatchers.IO) {
             return@withContext model.getFilms()
         }

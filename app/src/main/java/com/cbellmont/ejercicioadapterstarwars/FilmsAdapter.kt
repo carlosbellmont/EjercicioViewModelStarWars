@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.cbellmont.ejercicioadapterstarwars.databinding.FilmLayoutBinding
 import com.squareup.picasso.Picasso
 
 class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.FilmsViewHolder>() {
 
+    lateinit var binding : FilmLayoutBinding
 
     class FilmsViewHolder(root: View, var tvNombre: TextView, var tvIntro: TextView, var ivDerecha: ImageView, var ivIzquierda: ImageView) : RecyclerView.ViewHolder(root)
 
@@ -21,13 +23,8 @@ class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.FilmsViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.film_layout, parent, false)
-        val tvName = view.findViewById<TextView>(R.id.tvName)
-        val tvIntro = view.findViewById<TextView>(R.id.tvIntro)
-        val ivDerecha = view.findViewById<ImageView>(R.id.ivDerecha)
-        val ivIzquierda = view.findViewById<ImageView>(R.id.ivIzquierda)
-
-        return FilmsViewHolder(view, tvName, tvIntro, ivDerecha, ivIzquierda)
+        binding = FilmLayoutBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        return FilmsViewHolder(binding.root, binding.tvName, binding.tvIntro, binding.ivDerecha, binding.ivIzquierda)
     }
 
     override fun getItemCount(): Int {

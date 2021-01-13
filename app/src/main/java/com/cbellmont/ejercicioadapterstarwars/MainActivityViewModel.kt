@@ -13,8 +13,8 @@ class MainActivityViewModel  : ViewModel() {
     private val films = mutableListOf<Film>()
 
     suspend fun getFilms(): MutableList<Film> {
-        delay(5000)
         if (films.isEmpty()){
+            delay(5000)
             downloadFilms()
         }
         return films
