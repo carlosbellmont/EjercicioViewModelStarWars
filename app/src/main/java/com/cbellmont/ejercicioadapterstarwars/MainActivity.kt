@@ -1,12 +1,11 @@
 package com.cbellmont.ejercicioadapterstarwars
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cbellmont.ejercicioadapterstarwars.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     private suspend fun setAdapterOnMainThread(filmsList: MutableList<Film>) {
         withContext(Dispatchers.Main) {
             adapter.updateFilms(filmsList)
-            pbLoading.visibility = View.GONE
+            binding.pbLoading.visibility = View.GONE
         }
     }
 }
