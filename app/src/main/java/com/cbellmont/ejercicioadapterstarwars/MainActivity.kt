@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cbellmont.ejercicioadapterstarwars.databinding.ActivityMainBinding
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun downloadAll(){
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             val list = loadFilmInBackground()
             setAdapterOnMainThread(list)
         }
